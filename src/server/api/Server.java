@@ -7,6 +7,7 @@ import protocol.CommandPacket;
 import protocol.LoginPacket;
 import server.api.mem.UserFileManager;
 import server.api.ops.CommandOperator;
+import server.api.ops.Commands;
 
 public class Server implements Runnable{
     public static ClientManager cm;
@@ -14,6 +15,8 @@ public class Server implements Runnable{
     
     private String name;
     private byte lastID;
+    
+    public static Commands commands = new Commands();
     
     HashMap<String, CommandOperator> COs = new HashMap<String, CommandOperator>();
     
