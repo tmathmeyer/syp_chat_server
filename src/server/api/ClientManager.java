@@ -5,10 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import protocol.ChannelPacket;
 import protocol.MessageGroupListPacket;
 import protocol.MessagePacket;
-import protocol.UsersPacket;
 
 public class ClientManager implements Runnable{
 	private ArrayList<Client> clients = new ArrayList<Client>();
@@ -53,7 +51,7 @@ public class ClientManager implements Runnable{
                 Socket socket = serverSocket.accept();
                 Client bob = new Client(socket);
                 clients.add(bob);
-                groups.get(0).addToGroup(bob, ChannelPacket.home);
+                // groups.get(0).kdjaksjdlaksjdlaksjd ADD THEM TO HOME DAMNIT;
             }
             catch(Exception e){
             	e.printStackTrace();
@@ -100,15 +98,7 @@ public class ClientManager implements Runnable{
 	}
 	
 	
-	public ChannelPacket addUserToChannel(ChannelPacket cp, Client c){
-		Group g = this.getGroupByName(cp.getName());
-		
-		return g.addToGroup(c, cp);
-	}
-	public ChannelPacket removeUserFromChannel(ChannelPacket cp, Client c){
-		Group g = this.getGroupByName(cp.getName());
-		return g.removeUser(c, cp);
-	}
+	
 	
 	public Group getGroupByName(String name){
 		for(Group g : groups) if (g.getName()==name)return g;

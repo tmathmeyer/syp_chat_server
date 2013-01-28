@@ -3,7 +3,6 @@ package server.api;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import protocol.ChannelPacket;
 import protocol.MessagePacket;
 import protocol.UsersPacket;
 
@@ -88,12 +87,9 @@ public class Group implements Runnable{
 		clients.remove(c);
 	}
 	
-	public ChannelPacket addToGroup(Client c, ChannelPacket cp){
-		if (open && !hasMember(c)){
+	public void addToGroup(Client c){
+		if (open && !hasMember(c))
 			clients.add(c);
-			return cp.setPacketID((byte) 0x03);
-		}
-		return cp.setPacketID((byte) 0x13);
 	}
 	
 	public boolean hasMember(Client c){
@@ -124,9 +120,8 @@ public class Group implements Runnable{
 		return this.modUserName!=null ? this.modUserName : new ArrayList<String>();
 	}
 
-	public ChannelPacket removeUser(Client c, ChannelPacket cp) {
+	public void removeUser(Client c) {
 		this.kick(c);
-		return cp;
 	}
 	
 	public void sendUserInformation(){

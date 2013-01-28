@@ -1,9 +1,12 @@
 package server.api;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
+import protocol.CommandPacket;
 import protocol.LoginPacket;
 import server.api.mem.UserFileManager;
+import server.api.ops.CommandOperator;
 
 public class Server implements Runnable{
     public static ClientManager cm;
@@ -11,6 +14,8 @@ public class Server implements Runnable{
     
     private String name;
     private byte lastID;
+    
+    HashMap<String, CommandOperator> COs = new HashMap<String, CommandOperator>();
     
     public Server(int port, String serverName) throws Exception {
     	name = serverName;
@@ -81,5 +86,27 @@ public class Server implements Runnable{
 				System.exit(0);
 			}
 		}
+		reader.close();
+	}
+	
+	
+	
+	public void operateCommand(CommandPacket cp, Client client){
+		CommandOperator c = this.COs.get(cp.getCommand().toLowerCase());
+		if (c!=null)c.parseCommand(client, cp.getArgs());
+		else ;
+	}
+	
+	
+	public void addCommandOperator(CommandOperator o, String command){
+		this.COs.put(command, o);
+	}
+	
+	public void addUserToGroup(Client c, String gn){
+		cm.getGroupByName(gn).addToGroup(c);
+	}
+	
+	public void remUserFromGroup(Client c, String gn){
+		cm.getGroupByName(gn).removeUser(c);
 	}
 }

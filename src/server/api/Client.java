@@ -3,7 +3,7 @@ package server.api;
 import java.net.Socket;
 import java.io.*;
 
-import protocol.ChannelPacket;
+import protocol.CommandPacket;
 import protocol.ControlPacket;
 import protocol.LoginPacket;
 import protocol.MessagePacket;
@@ -20,6 +20,7 @@ public class Client extends Thread{
 	private Socket myConnection;
 	private DataInputStream in;
     private DataOutputStream out;
+    
     
 	public Client(Socket socket) throws Exception{
 		this.myConnection = socket;
@@ -43,19 +44,17 @@ public class Client extends Thread{
 					this.login(new LoginPacket(in));
 				if (read==0x10) //logout
 					this.killMe();
-				if (read==0x20) //register
+				if (read==0x21) //register
 					this.register(new LoginPacket(in));
 				if (!authenticated) //control
 					this.killMe();
-				
 				if (read==0x01) //message
 					this.broadcastMessage(new MessagePacket(in));
-				if (read==0x03) //join channel
-					Server.cm.addUserToChannel(new ChannelPacket(in, (byte) 0x03), this);
-				if (read==0x13) //leave channel
-					Server.cm.removeUserFromChannel(new ChannelPacket(in, (byte) 0x13), this);
 				
-				if (read==0x04); //for later use
+				
+				
+				if (read==0x04)
+					Server.se.operateCommand(new CommandPacket(in), this);
 				if (read==0x05); //for later use
 				
 			}
