@@ -38,7 +38,7 @@ public class Client extends Thread{
 		try{
 			while(receiving){
 				byte read = this.in.readByte();
-				System.out.println(this.userName+" recieved a packet with the ID: "+read);
+				System.out.println(this.userName+" sent a packet with the ID: "+read);
 				
 				if (read==0x00) //login
 					this.login(new LoginPacket(in));

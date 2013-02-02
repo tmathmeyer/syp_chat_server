@@ -28,7 +28,10 @@ public class ClientManager implements Runnable{
 	
 	public synchronized void broadcastMessage(MessagePacket m) throws IOException{
 		Group g = this.getGroupByID(m.getMessageGroup());
-		if (g==null)return;
+		if (g==null){
+			System.out.println("well shit, that group is unknown");
+			return;
+		}
 		g.broadcast(m);
 	}
 

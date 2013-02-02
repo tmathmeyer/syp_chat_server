@@ -30,7 +30,6 @@ public class MessagePacket implements Packet{
 	 */
 	public MessagePacket(DataInputStream in) throws IOException{
 		int ID = (int) (Math.random()*10000);
-		System.out.println("a message packet has been created with ID: "+ID);
 		this.in = in;
 		this.setMessageGroup(in.readByte());
 		this.setHour(in.readShort());
@@ -46,7 +45,6 @@ public class MessagePacket implements Packet{
 		for(int i = 0; i < user.length; i++)
 			user[i] = in.readChar();
 		this.setUsername(new String(user));
-		System.out.println("the packet ID: "+ID+" has been recieved in full");
 	}
 	
 	/**
