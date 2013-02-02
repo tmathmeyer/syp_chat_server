@@ -51,6 +51,7 @@ public class Group implements Runnable{
 	}
 	public void broadcast(MessagePacket m) throws IOException{
 		ArrayList<Client> copyof = new ArrayList<Client>(this.clients);
+		System.out.println(this.clients.size());
 		for(Client c : copyof)c.sendMessage(m);
 	}
 	
