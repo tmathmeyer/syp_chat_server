@@ -54,7 +54,7 @@ public class ClientManager implements Runnable{
                 Socket socket = serverSocket.accept();
                 Client bob = new Client(socket);
                 clients.add(bob);
-                // groups.get(0).kdjaksjdlaksjdlaksjd ADD THEM TO HOME DAMNIT;
+                groups.get(0).addToGroup(bob);
             }
             catch(Exception e){
             	e.printStackTrace();
