@@ -95,6 +95,7 @@ public class Server implements Runnable{
 	
 	
 	public void operateCommand(CommandPacket cp, Client client){
+		System.out.println(client.getName()+" has sent the command: "+cp.getCommand());
 		CommandOperator c = this.COs.get(cp.getCommand().toLowerCase());
 		if (c!=null)c.parseCommand(client, cp.getArgs());
 		else ;
