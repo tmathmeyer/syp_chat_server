@@ -69,7 +69,7 @@ public class CommandPacket implements Packet{
 		for(int i = 0; i < this.getArgs().length; i++)
 			d.writeShort(this.getArgs()[i].length());
 		for(int i = 0; i < this.getArgs().length; i++)
-			d.writeBytes(this.getArgs()[i]);
+			d.writeChars(this.getArgs()[i]);
 	}
 
 	/**
