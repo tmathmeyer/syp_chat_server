@@ -149,7 +149,7 @@ public class Group implements Runnable{
 	public void addToGroup(Client c){
 		if (open && !hasMember(c)){
 			currentClients.add(c);
-			this.changePerm(c, "U");
+			if (this.userperms.get(c.getName())==null)this.changePerm(c, "U");
 		}
 	}
 	
