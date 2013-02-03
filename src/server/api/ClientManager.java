@@ -61,6 +61,12 @@ public class ClientManager implements Runnable{
             }
             catch(Exception e){
             	e.printStackTrace();
+            	try {
+					serverSocket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         } 
     }
@@ -144,5 +150,6 @@ public class ClientManager implements Runnable{
 	public void kill() throws IOException{
 		for(Group g : this.groups) g.writeToFile();
 		for(Client c : this.clients)c.killMe();
+		serverSocket.close();
 	}
 }
