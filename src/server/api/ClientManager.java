@@ -14,6 +14,7 @@ public class ClientManager implements Runnable{
 	private ServerSocket serverSocket;
 	private int logCount = 0;
 	private ArrayList<Group> groups = new ArrayList<Group>();
+	private boolean running = true;
 	
 	
 	
@@ -52,7 +53,7 @@ public class ClientManager implements Runnable{
 	
 	
 	public void run() {
-        while(true) {
+        while(running) {
             try {
                 Socket socket = serverSocket.accept();
                 Client bob = new Client(socket);
@@ -61,11 +62,13 @@ public class ClientManager implements Runnable{
             }
             catch(Exception e){
             	e.printStackTrace();
+            	running = false;
             	try {
 					serverSocket.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					System.exit(0);
 				}
             }
         } 
@@ -148,6 +151,7 @@ public class ClientManager implements Runnable{
 	
 	
 	public void kill() throws IOException{
+		running = false;
 		for(Group g : this.groups) g.writeToFile();
 		for(Client c : this.clients)c.killMe();
 		serverSocket.close();
