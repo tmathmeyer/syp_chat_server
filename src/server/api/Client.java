@@ -38,7 +38,6 @@ public class Client extends Thread{
 		try{
 			while(receiving){
 				byte read = this.in.readByte();
-				System.out.println(this.userName+" sent a packet with the ID: "+read);
 				
 				if (read==0x00) //login
 					this.login(new LoginPacket(in));
@@ -68,7 +67,6 @@ public class Client extends Thread{
 	
 	
 	public void broadcastMessage(MessagePacket m) throws IOException{
-		System.out.println(m.getMessage());
 		Server.cm.broadcastMessage(m);
 	}
 	

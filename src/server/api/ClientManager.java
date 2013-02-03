@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import protocol.MessageGroupListPacket;
 import protocol.MessagePacket;
+import server.api.group.Group;
 
 public class ClientManager implements Runnable{
 	private ArrayList<Client> clients = new ArrayList<Client>();
@@ -108,8 +109,8 @@ public class ClientManager implements Runnable{
 		return null;
 	}
 	
-	public Group makeGroup(String gn){
-		Group g = new Group(gn);
+	public Group makeGroup(String gn, String admin){
+		Group g = new Group(gn, admin);
 		
 		return g;
 	}

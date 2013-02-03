@@ -110,6 +110,6 @@ public class Server implements Runnable{
 	}
 	
 	public void remUserFromGroup(Client c, String gn){
-		cm.getGroupByName(gn).removeUser(c);
+		cm.getGroupByName(gn).kick(c);
 	}
 }
