@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.Queue;
 
 import protocol.ControlPacket;
+import protocol.MessageGroupListPacket;
 import protocol.MessagePacket;
 import protocol.UsersPacket;
 import protocol.Packet;
@@ -37,6 +38,9 @@ public class Reciever implements Runnable{
 					p = new UsersPacket(in);
 				if (read==0x15){
 					p = new ControlPacket(in);
+				}
+				if (read==0x03){
+					p = new MessageGroupListPacket(in);
 				}
 				
 				this.c.processPacket(p);
