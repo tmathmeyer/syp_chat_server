@@ -127,4 +127,11 @@ public class ClientManager implements Runnable{
 			c.sendPacket(new MessageGroupListPacket(ids, names));
 		}
 	}
+	
+	
+	
+	
+	public void addGroup(String name, String admin){
+		this.groups.add(new Group(name, admin));
+	}
 }

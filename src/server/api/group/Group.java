@@ -40,9 +40,6 @@ public class Group implements Runnable{
 	
 	@SuppressWarnings("unchecked")
 	public Group(String name, String founder){
-		this.groupName = name;
-		this.userperms.put(founder, "A");
-		
 		try {
 			ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(name+".gr"));
 			userperms = (HashMap<String, String>) objIn.readObject();
@@ -50,6 +47,10 @@ public class Group implements Runnable{
 		} catch (Exception e) {
 			userperms = new HashMap<String, String>();
 		}
+		
+		this.groupName = name;
+		this.userperms.put(founder, "A");
+		new Thread(this).start();
 	}
 	
 	
@@ -180,7 +181,7 @@ public class Group implements Runnable{
 		String[] names = new String[this.currentClients.size()];
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
-			names[i] = "[" + this.userperms.get(c) + "]" + c.getUserName();
+			names[i] = "[" + this.getPerm(c) + "]" + c.getUserName();
 		}
 		for(Client c : this.currentClients){
 			c.sendPacket(new UsersPacket(names, this.ID));
