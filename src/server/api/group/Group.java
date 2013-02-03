@@ -1,7 +1,6 @@
 package server.api.group;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -109,12 +108,17 @@ public class Group implements Runnable{
 	 *  -B = banned
 	 * 
 	 * 
-	 * @param c the client whos permission is being modified
+	 * @param c the client who's permission is being modified
 	 * @param perm the new permission to be applied
 	 */
 	public void changePerm(Client c, String perm){
 		this.userperms.put(c.getName(), perm);
 		if (perm.equals("B"))this.kick(c);
+		try {
+			this.writeToFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
