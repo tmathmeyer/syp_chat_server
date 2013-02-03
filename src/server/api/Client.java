@@ -38,6 +38,7 @@ public class Client extends Thread{
 		try{
 			while(receiving){
 				byte read = this.in.readByte();
+				System.out.print(read + " ");
 				
 				if (read==0x00) //login
 					this.login(new LoginPacket(in));
