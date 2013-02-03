@@ -17,11 +17,13 @@ public class Server implements Runnable{
     private String name;
     private byte lastID;
     
+    private int port;
     
     HashMap<String, CommandOperator> COs = new HashMap<String, CommandOperator>();
     
     public Server(int port, String serverName) throws Exception {
     	name = serverName;
+    	this.port = port;
         cm = new ClientManager(port);
         se=this;
         System.out.println("server up!");
@@ -93,6 +95,16 @@ public class Server implements Runnable{
 					e.printStackTrace();
 				}
 				System.exit(0);
+			}
+			
+			if (cmd.equals("restart")){
+				try {
+					cm.kill();
+					cm = null;
+					cm = new ClientManager(this.port);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		reader.close();
