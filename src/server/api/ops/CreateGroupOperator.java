@@ -12,9 +12,11 @@ public class CreateGroupOperator  implements CommandOperator {
 
 	@Override
 	public void parseCommand(Client sender, String[] args) {
-		if (args.length < 1) return;//sender.sendMessage();
-		Server.cm.addGroup(args[0], sender.getName());
-		Server.se.addUserToGroup(sender, args[0]);
+		System.out.println("creation was triggered");
+		for(String arg : args)System.out.println(arg);
+		if (args.length < 2) return;//sender.sendMessage();
+		Server.cm.addGroup(args[1], sender.getName());
+		Server.se.addUserToGroup(sender, args[1]);
 	}
 
 }

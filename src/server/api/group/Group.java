@@ -1,5 +1,6 @@
 package server.api.group;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import protocol.MessagePacket;
 import protocol.UsersPacket;
 
 import server.api.Client;
+import server.api.Server;
 
 public class Group implements Runnable{
 	
@@ -33,6 +35,11 @@ public class Group implements Runnable{
 	 */
 	public byte getID(){
 		return ID;
+	}
+	
+	
+	public void setID(byte ID){
+		this.ID = ID;
 	}
 	
 	
@@ -95,6 +102,7 @@ public class Group implements Runnable{
 			try{
 				Thread.sleep(5000);
 				this.sendUserInformation();
+				Server.cm.sendGroupInformation();
 			}catch(Exception e){}
 		}
 	}
@@ -115,11 +123,6 @@ public class Group implements Runnable{
 	public void changePerm(Client c, String perm){
 		this.userperms.put(c.getName(), perm);
 		if (perm.equals("B"))this.kick(c);
-		try {
-			this.writeToFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	
@@ -193,8 +196,11 @@ public class Group implements Runnable{
 	 * 
 	 * @throws IOException
 	 */
-	private void writeToFile() throws IOException{
-		FileOutputStream fos = new FileOutputStream(this.getName()+".gr");
+	public void writeToFile() throws IOException{
+		String fn = this.getName()+".gr";
+		File f = new File(fn);
+		if (! f.exists()) f.createNewFile();
+		FileOutputStream fos = new FileOutputStream(fn);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(this.userperms);
 		oos.close();

@@ -1,5 +1,6 @@
 package server.api;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -16,7 +17,6 @@ public class Server implements Runnable{
     private String name;
     private byte lastID;
     
-    public static Commands commands = new Commands();
     
     HashMap<String, CommandOperator> COs = new HashMap<String, CommandOperator>();
     
@@ -25,6 +25,7 @@ public class Server implements Runnable{
         cm = new ClientManager(port);
         se=this;
         System.out.println("server up!");
+        new Commands();
         new Thread(this).start();
     }
     
@@ -86,7 +87,11 @@ public class Server implements Runnable{
 		while(reader.hasNext()){
 			String cmd = reader.nextLine();
 			if (cmd.equals("stop")){
-				System.exit(0);
+				try {
+					cm.kill();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		reader.close();
@@ -98,7 +103,11 @@ public class Server implements Runnable{
 		System.out.println(client.getName()+" has sent the command: "+cp.getCommand());
 		CommandOperator c = this.COs.get(cp.getCommand().toLowerCase());
 		if (c!=null)c.parseCommand(client, cp.getArgs());
-		else ;
+		else{
+			System.out.println("the available comands are:");
+			for(String s : this.COs.keySet())
+				System.out.println("   "+s);
+		}
 	}
 	
 	

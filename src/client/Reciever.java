@@ -30,7 +30,7 @@ public class Reciever implements Runnable{
 		try{
 			while(receiving){
 				byte read = this.in.readByte();
-				System.out.println(read);
+				c.print(read);
 				Packet p = null;
 				if (read==0x01) //message
 					p = new MessagePacket(in);

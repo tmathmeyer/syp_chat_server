@@ -74,4 +74,11 @@ public interface Client extends Runnable{
 	 * @throws Exception Objects are people too, and they dont always like being shutdown like that. jerk.
 	 */
 	public void closeOutStream() throws Exception;
+	
+	
+	/**
+	 * 
+	 * @param b this method can be used by the client to get the packet header byte for any operation sans packet handling
+	 */
+	public void print(byte b);
 }

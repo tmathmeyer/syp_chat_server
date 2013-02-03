@@ -2,7 +2,7 @@ package server.api.ops;
 
 public class Commands {
 	public Commands(){
-		new JoinGroupOperator();
-		
+		new JoinGroupOperator().register();
+		new CreateGroupOperator().register();
 	}
 }

@@ -17,7 +17,9 @@ public class ClientManager implements Runnable{
 	
 	
 	
-	
+	public byte getGroupCount(){
+		return (byte) this.groups.size();
+	}
 	
 	public ClientManager(int port) throws Exception{
 		serverSocket = new ServerSocket(port, 500);
@@ -115,7 +117,7 @@ public class ClientManager implements Runnable{
 		return g;
 	}
 	
-	public void sendGroupnformation(){
+	public void sendGroupInformation(){
 		String[] names = new String[this.groups.size()];
 		byte[] ids = new byte[this.groups.size()];
 		
@@ -132,6 +134,15 @@ public class ClientManager implements Runnable{
 	
 	
 	public void addGroup(String name, String admin){
-		this.groups.add(new Group(name, admin));
+		Group temp = new Group(name, admin);
+		temp.setID(this.getGroupCount());
+		this.groups.add(temp);
+	}
+	
+	
+	
+	public void kill() throws IOException{
+		for(Group g : this.groups) g.writeToFile();
+		for(Client c : this.clients)c.killMe();
 	}
 }

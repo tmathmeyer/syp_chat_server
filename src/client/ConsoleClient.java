@@ -131,6 +131,12 @@ public class ConsoleClient implements Client{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void print(byte b) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 
