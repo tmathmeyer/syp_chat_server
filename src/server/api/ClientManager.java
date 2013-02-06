@@ -152,7 +152,6 @@ public class ClientManager implements Runnable{
 	public void kill() throws IOException{
 		running = false;
 		serverSocket.close();
-		for(Group g : this.groups) g.writeToFile();
 		for(Client c : this.clients)c.killMe();
 		
 	}

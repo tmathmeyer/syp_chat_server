@@ -94,6 +94,7 @@ public class Server implements Runnable{
 					System.exit(0);
 				}
 				else if (cmd.equals("restart")){
+					cm.saveAll();
 					cm.kill();
 					cm = null;
 					cm = new ClientManager(this.port);
