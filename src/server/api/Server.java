@@ -96,8 +96,7 @@ public class Server implements Runnable{
 				}
 				System.exit(0);
 			}
-			
-			if (cmd.equals("restart")){
+			else if (cmd.equals("restart")){
 				try {
 					cm.kill();
 					cm = null;
@@ -106,6 +105,10 @@ public class Server implements Runnable{
 					e.printStackTrace();
 				}
 			}
+			else{
+				System.out.println("Sorry, I dont recognize that command");
+			}
+			
 		}
 		reader.close();
 	}

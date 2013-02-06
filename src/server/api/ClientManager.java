@@ -61,7 +61,6 @@ public class ClientManager implements Runnable{
                 groups.get(0).addToGroup(bob);
             }
             catch(Exception e){
-            	e.printStackTrace();
             	running = false;
             	try {
 					serverSocket.close();
@@ -152,8 +151,9 @@ public class ClientManager implements Runnable{
 	
 	public void kill() throws IOException{
 		running = false;
+		serverSocket.close();
 		for(Group g : this.groups) g.writeToFile();
 		for(Client c : this.clients)c.killMe();
-		serverSocket.close();
+		
 	}
 }
