@@ -156,4 +156,8 @@ public class ClientManager implements Runnable{
 		for(Client c : this.clients)c.killMe();
 		
 	}
+
+	public void saveAll() throws IOException {
+		for(Group g : this.groups) g.writeToFile();
+	}
 }

@@ -87,27 +87,25 @@ public class Server implements Runnable{
 	public void run() {
 		Scanner reader = new Scanner(System.in);
 		while(reader.hasNext()){
-			String cmd = reader.nextLine();
-			if (cmd.equals("stop")){
-				try {
+			try{
+				String cmd = reader.nextLine();
+				if (cmd.equals("stop")){
 					cm.kill();
-				} catch (IOException e) {
-					e.printStackTrace();
+					System.exit(0);
 				}
-				System.exit(0);
-			}
-			else if (cmd.equals("restart")){
-				try {
+				else if (cmd.equals("restart")){
 					cm.kill();
 					cm = null;
 					cm = new ClientManager(this.port);
-				} catch (Exception e) {
-					e.printStackTrace();
+				}
+				else if (cmd.equals("save data")){
+					cm.saveAll();
+				}
+				else{
+					System.out.println("Sorry, I dont recognize that command");
 				}
 			}
-			else{
-				System.out.println("Sorry, I dont recognize that command");
-			}
+			catch(Exception e){}
 			
 		}
 		reader.close();
