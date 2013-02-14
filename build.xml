@@ -30,7 +30,7 @@
   <target name="jar" depends="compile">
     <jar destfile="${dist.dir}\Server.jar" basedir="${build.dir}">
       <manifest>
-        <attribute name="Main-Class" value="server.api.Server"/>
+        <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
     </jar>
   </target>
