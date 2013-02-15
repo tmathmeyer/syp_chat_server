@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class MessagePacket implements Packet{
 
+	@SuppressWarnings("unused")
 	private DataInputStream in;
 	private short messageLength;
 	private byte messageGroup;
@@ -29,7 +30,6 @@ public class MessagePacket implements Packet{
 	 * @throws IOException if no data can be read from the data input stream, an IO exception is thrown
 	 */
 	public MessagePacket(DataInputStream in) throws IOException{
-		int ID = (int) (Math.random()*10000);
 		this.in = in;
 		this.setMessageGroup(in.readByte());
 		this.setHour(in.readShort());

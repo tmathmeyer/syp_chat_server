@@ -1,7 +1,7 @@
-client
-gui
-gui.real
-protocol
-server.api
-server.api.info
-server.api.mem
+edu.wpi.tmathmeyer.chat.client
+edu.wpi.tmathmeyer.chat.protocol
+edu.wpi.tmathmeyer.chat.server
+edu.wpi.tmathmeyer.chat.server.group
+edu.wpi.tmathmeyer.chat.server.info
+edu.wpi.tmathmeyer.chat.server.mem
+edu.wpi.tmathmeyer.chat.server.ops

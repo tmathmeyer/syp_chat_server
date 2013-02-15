@@ -3,7 +3,6 @@ package edu.wpi.tmathmeyer.chat.client;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Queue;
 
 import edu.wpi.tmathmeyer.chat.protocol.ControlPacket;
 import edu.wpi.tmathmeyer.chat.protocol.MessageGroupListPacket;
@@ -32,16 +31,15 @@ public class Reciever implements Runnable{
 				byte read = this.in.readByte();
 				c.print(read);
 				Packet p = null;
-				if (read==0x01) //message
+				if (read==0x01)
 					p = new MessagePacket(in);
-				if (read==0x09) //list
+				if (read==0x09)
 					p = new UsersPacket(in);
-				if (read==0x15){
+				if (read==0x15)
 					p = new ControlPacket(in);
-				}
-				if (read==0x03){
+				if (read==0x03)
 					p = new MessageGroupListPacket(in);
-				}
+				
 				
 				this.c.processPacket(p);
 				

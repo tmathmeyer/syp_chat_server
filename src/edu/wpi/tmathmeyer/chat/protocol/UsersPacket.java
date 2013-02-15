@@ -17,7 +17,7 @@ public class UsersPacket implements Packet{
 	 * [----groupNames: {'tim','tom'...}-] [---the channel names---------------]
 	 * 
 	 * 
-	 * @param in the data input stream
+	 * @param di the data input stream
 	 * @throws IOException if no data can be read from the data input stream, an IO exception is thrown
 	 */
 	public UsersPacket(DataInputStream di) throws IOException{
@@ -34,12 +34,18 @@ public class UsersPacket implements Packet{
 			this.users[i] = new String(b);
 		}
 	}
-
+	
+	
+	/**
+	 * 
+	 * @param users the users in the group
+	 * @param groupID the ID of the group as created by the clientManager
+	 */
 	public UsersPacket(String[] users, byte groupID){
 		this.groupID = groupID;
 		this.users = users;
 	}
-
+	
 	@Override
 	public byte getPacketID() {
 		return 0x09;

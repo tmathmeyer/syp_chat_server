@@ -46,6 +46,13 @@ public class CommandPacket implements Packet{
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param com the command "/create newGroup" --> com = create
+	 * @param a the arguments "/create newGroup" --> a = "newGroup"
+	 * @param group the group that this command is called for. this may not matter for some commands (create, me, etc, especially if the single-group flag is set)
+	 */
 	public CommandPacket(String com, String a, byte group){
 		String[] args = a.split(" ");
 		this.setCommand(com);
