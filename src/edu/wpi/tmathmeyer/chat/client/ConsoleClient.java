@@ -55,13 +55,11 @@ public class ConsoleClient implements Client{
 	
 	
 	
-	@SuppressWarnings("resource")
 	public static void main(String[] args){
 		try{
 			
 			Socket s = new Socket("localhost",25566);
-			ConsoleClient se = new ConsoleClient(s);
-			
+			new ConsoleClient(s);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -117,6 +115,7 @@ public class ConsoleClient implements Client{
 		try{
 			this.startReciever(new Reciever(this.getSocket(), this));
 			this.login("tmathmeyer", "pass");
+			@SuppressWarnings("resource")
 			Scanner s = new Scanner(System.in);
 			
 			while(true){

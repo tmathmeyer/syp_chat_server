@@ -1,14 +1,13 @@
 package edu.wpi.tmathmeyer.chat.server;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import edu.wpi.tmathmeyer.chat.protocol.CommandPacket;
 import edu.wpi.tmathmeyer.chat.protocol.LoginPacket;
+import edu.wpi.tmathmeyer.chat.server.command.CommandOperator;
+import edu.wpi.tmathmeyer.chat.server.command.Commands;
 import edu.wpi.tmathmeyer.chat.server.mem.UserFileManager;
-import edu.wpi.tmathmeyer.chat.server.ops.CommandOperator;
-import edu.wpi.tmathmeyer.chat.server.ops.Commands;
 
 public class Server implements Runnable{
     public static ClientManager cm;

@@ -16,6 +16,7 @@ public class UserFileManager {
 		try{
 			Scanner reader = new Scanner(f);
 			String onFile = reader.nextLine();
+			reader.close();
 			if (onFile.equals(password)){
 				return true;
 			}
@@ -51,6 +52,7 @@ public class UserFileManager {
 		try{
 			Scanner reader = new Scanner(f);
 			s = reader.nextLine();
+			reader.close();
 			return s;
 		}
 		catch(Exception e){

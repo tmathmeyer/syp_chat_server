@@ -1,4 +1,4 @@
-package edu.wpi.tmathmeyer.chat.server.ops;
+package edu.wpi.tmathmeyer.chat.server.command;
 
 import edu.wpi.tmathmeyer.chat.server.Client;
 import edu.wpi.tmathmeyer.chat.server.Server;

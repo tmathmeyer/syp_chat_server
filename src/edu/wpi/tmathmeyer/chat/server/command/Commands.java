@@ -1,4 +1,4 @@
-package edu.wpi.tmathmeyer.chat.server.ops;
+package edu.wpi.tmathmeyer.chat.server.command;
 
 public class Commands {
 	public Commands(){
