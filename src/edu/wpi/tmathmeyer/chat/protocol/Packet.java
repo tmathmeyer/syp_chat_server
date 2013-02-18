@@ -20,26 +20,22 @@ public interface Packet {
 	
 	
 	/**
-	 * 0x00       login client->server
 	 * 
-	 * 0x01       message client->server
-	 * 0x01       message server->client
+	 * loginPacket : 0x00
 	 * 
-	 * 0x02       message groups server->client
-	 *               (client is a member of)
-	 *               
-	 * 0x03       message groups server->client
-	 *               (all of them)
-	 *               
-	 * 0x04       Users in a group server->client
-	 * 
-	 * 0x05       join a group client->server
-	 * 
-	 * 0x06       leave a group client->server
-	 * 0x16       leave a group server->client
-	 * 0x26       kicked from a group server->client
-	 * 
-	 * 0x99       control packet (depends on whats going on)
+     * messagePacketListPacket : 0x01
+     * 
+     * messageGroupPacket : 0x02
+     * 
+     * messageGroupList : 0x03
+     * 
+     * commandPacket : 0x04
+     * 
+     * privateMessagePacket : 0x05
+     * 
+     * usersPacket : 0x09
+     * 
+     * controlPacket : 0x15
 	 * 
 	 */
 }

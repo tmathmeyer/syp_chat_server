@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 import edu.wpi.tmathmeyer.chat.protocol.MessageGroupListPacket;
 import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
+import edu.wpi.tmathmeyer.chat.protocol.PrivateMessagePacket;
 import edu.wpi.tmathmeyer.chat.server.group.Group;
 
 public class ClientManager implements Runnable{
 	private ArrayList<Client> clients = new ArrayList<Client>();
 	private ServerSocket serverSocket;
-	private int logCount = 0;
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private boolean running = true;
 	
@@ -28,16 +28,6 @@ public class ClientManager implements Runnable{
 		me.start();
 		groups.add(new Group());	
 	}
-	
-	
-	public synchronized void broadcastMessage(MessagePacket m) throws IOException{
-		Group g = this.getGroupByID(m.getMessageGroup());
-		if (g==null){
-			System.out.println("well shit, that group is unknown");
-			return;
-		}
-		g.broadcast(m);
-	}
 
 	
 	public Group getGroupByID(byte ID){
@@ -46,10 +36,10 @@ public class ClientManager implements Runnable{
 	}
 	
 	
-	public String getNewUsername(){
-		return "Client"+(++logCount);
+	public void sendMessageToUser(String userTo, String userFrom, String message){
+		Client c = this.getClientByName(userTo);
+		c.sendPacket(new PrivateMessagePacket(userFrom, message));
 	}
-	
 	
 	
 	public void run() {
@@ -65,7 +55,6 @@ public class ClientManager implements Runnable{
             	try {
 					serverSocket.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					System.exit(0);
 				}
@@ -115,7 +104,7 @@ public class ClientManager implements Runnable{
 	
 	
 	public Group getGroupByName(String name){
-		for(Group g : groups) if (g.getName()==name)return g;
+		for(Group g : groups) if (g.getName().equals(name))return g;
 		return null;
 	}
 	

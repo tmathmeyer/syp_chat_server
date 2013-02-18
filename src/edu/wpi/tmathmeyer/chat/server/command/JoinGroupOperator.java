@@ -14,15 +14,14 @@ public class JoinGroupOperator implements CommandOperator {
 	@Override
 	public void parseCommand(Client sender, String[] args) {
 		if (args.length==0)return;
-		String group = args[0];
+		String group = args[1];
 		Group g = Server.cm.getGroupByName(group);
 		if (g==null)return;
 		if (g.addToGroup(sender)){
-			Group old = Server.cm.getGroupByName(sender.getCurrentGroup());
+			Group old = (sender.getCurrentGroup());
 			old.kick(sender);
-			sender.setCurrentGroup(g.getName());
+			sender.setCurrentGroup(g);
 		}
-		
 	}
 
 }

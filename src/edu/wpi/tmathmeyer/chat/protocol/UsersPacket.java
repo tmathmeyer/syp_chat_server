@@ -7,14 +7,15 @@ import java.io.IOException;
 public class UsersPacket implements Packet{
 	private byte groupID;
 	private String[] users;
+	byte[][] userInformation;
 	
 	/**
 	 * EXAMPLE PACKET
 	 * 
 	 * [----packetID: 0x09---------------] [---client list packet--------------]
 	 * [----usersCount: 4----------------] [---the number of groups 2 (short)--]
-	 * [----groupNameLengths: {3,3,3,3}--] [---the lengths of the channel names]
-	 * [----groupNames: {'tim','tom'...}-] [---the channel names---------------]
+	 * [----userNameLengths: {3,3,3,3}---] [---the lengths of the user names---]
+	 * [----userNames: {'tim','tom'...}--] [---the user names------------------]
 	 * 
 	 * 
 	 * @param di the data input stream

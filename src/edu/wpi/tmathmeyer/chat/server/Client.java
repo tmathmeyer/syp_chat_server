@@ -8,6 +8,7 @@ import edu.wpi.tmathmeyer.chat.protocol.ControlPacket;
 import edu.wpi.tmathmeyer.chat.protocol.LoginPacket;
 import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
 import edu.wpi.tmathmeyer.chat.protocol.Packet;
+import edu.wpi.tmathmeyer.chat.server.group.Group;
 
 public class Client extends Thread{
 
@@ -21,7 +22,9 @@ public class Client extends Thread{
 	private DataInputStream in;
     private DataOutputStream out;
     
-    private String currentGroup = "HOME";
+    private Group currentGroup = Server.cm.getGroupByID((byte) 0x00);
+    
+    private long lastActivity=0;
     
     
 	public Client(Socket socket) throws Exception{
@@ -61,9 +64,12 @@ public class Client extends Thread{
 					Server.se.operateCommand(new CommandPacket(in), this);
 				if (read==0x05); //for later use
 				
+				
+				lastActivity = System.nanoTime();
 			}
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			this.killMe();
 			receiving = false;
 			System.out.println(this.getUserName() + " has disconnected");
@@ -72,24 +78,39 @@ public class Client extends Thread{
 	
 	
 	public void broadcastMessage(MessagePacket m) throws IOException{
-		Server.cm.broadcastMessage(m);
+		this.getCurrentGroup().broadcast(m);
 	}
+	
+	
+	
 	
 	public void login(LoginPacket l){
 		Server.se.login(this, l);
 	}
 	
+	
+	
+	
 	public void register(LoginPacket l){
 		Server.se.register(this, l);
 	}
+	
+	
+	
 	
 	public void sendMessage(MessagePacket m) throws IOException{
 		m.write(this.out);
 	}
 	
+	
+	
+	
 	public void denial(){
 		this.sendPacket(new ControlPacket((byte) 0x00));
 	}
+	
+	
+	
 	
 	public void sendPacket(Packet p){
 		try {
@@ -214,7 +235,7 @@ public class Client extends Thread{
 	/**
 	 * @return the currentGroup
 	 */
-	public String getCurrentGroup() {
+	public Group getCurrentGroup() {
 		return currentGroup;
 	}
 
@@ -227,7 +248,22 @@ public class Client extends Thread{
 	/**
 	 * @param currentGroup the currentGroup to set
 	 */
-	public void setCurrentGroup(String currentGroup) {
+	public void setCurrentGroup(Group currentGroup) {
 		this.currentGroup = currentGroup;
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getLastActivityTime(){
+		long currentTime = System.nanoTime();
+		long elapsedTime = currentTime-this.lastActivity;
+		return "‡"+(elapsedTime*1000000<300?"C":"F");
 	}
 }

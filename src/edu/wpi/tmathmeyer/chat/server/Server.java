@@ -59,13 +59,6 @@ public class Server implements Runnable{
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public static void main(String[] args){
 		try{new Server(25566, "fail");}
 		catch(Exception e){e.printStackTrace();}

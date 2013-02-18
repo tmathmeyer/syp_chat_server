@@ -37,14 +37,44 @@ public class Group implements Runnable{
 		return ID;
 	}
 	
-	
+	/**
+	 * 
+	 * @param ID the group's ID
+	 */
 	public void setID(byte ID){
 		this.ID = ID;
 	}
 	
+	/**
+	 * 
+	 * @param closer the client attempting to close the group
+	 */
+	public void closeGroup(Client closer){
+		if (this.isAdminOrMod(closer.getUserName()))this.open = false;
+	}
 	
+	/**
+	 * 
+	 * @param closer the client attempting to open the group
+	 */
+	public void openGroup(Client closer){
+		if (this.isAdminOrMod(closer.getUserName()))this.open = true;
+	}
 	
+	/**
+	 * 
+	 * @param client the client
+	 * @return whether the client is an admin or a moderator
+	 */
+	public boolean isAdminOrMod(String client){
+		return this.userperms.get(client).equals("A") || this.userperms.get(client).equals("M");
+	}
 	
+	/**
+	 * 
+	 * @param name the name of the group
+	 * @param founder the name of the founder of the group
+	 */
 	@SuppressWarnings("unchecked")
 	public Group(String name, String founder){
 		try {
@@ -61,16 +91,12 @@ public class Group implements Runnable{
 		new Thread(this).start();
 	}
 	
-	
-	
 	/**
 	 * The default constructor for Groups
 	 */
 	public Group(){
 		this("HOME", "Admin");
 	}
-	
-	
 	
 	/**
 	 * 
@@ -82,7 +108,6 @@ public class Group implements Runnable{
 		for(Client c : copyof)c.sendMessage(m);
 	}
 	
-	
 	/**
 	 * 
 	 * @param c the client being checked
@@ -92,8 +117,6 @@ public class Group implements Runnable{
 		String rank = this.userperms.get(c.getName());
 		return rank.equals("A") || rank.equals("M") || rank.equals("U");
 	}
-	
-	
 	
 	/**
 	 * sends user information periodically
@@ -107,15 +130,18 @@ public class Group implements Runnable{
 			}catch(Exception e){}
 		}
 	}
-
-
+	
 	/**
 	 * this uses the rankings:
-	 *  -A = Administrator
-	 *  -M = Moderator
-	 *  -U = user
-	 *  -D = muted
-	 *  -B = banned
+	 *  ‡A = Administrator
+	 *  ‡M = Moderator
+	 *  ‡U = user
+	 *  ‡D = muted
+	 *  ‡B = banned
+	 *  
+	 *  NOTE THESE ARE NOT PERMISSIONS!
+	 *  ‡F = afk
+	 *  ‡C = current (not AFK)
 	 * 
 	 * 
 	 * @param c the client who's permission is being modified
@@ -126,6 +152,14 @@ public class Group implements Runnable{
 		if (perm.equals("B"))this.kick(c);
 	}
 	
+	/**
+	 * 
+	 * @param name the name of the user
+	 * @param perm the new permission for the user
+	 */
+	private void changePerm(String name, String perm){
+		this.userperms.put(name, perm);
+	}
 	
 	/**
 	 * 
@@ -135,7 +169,6 @@ public class Group implements Runnable{
 		currentClients.remove(c);
 	}
 	
-	
 	/**
 	 * 
 	 * @param c the client to be checked
@@ -144,7 +177,6 @@ public class Group implements Runnable{
 	public String getPerm(Client c){
 		return this.userperms.get(c.getName());
 	}
-	
 	
 	/**
 	 * 
@@ -156,10 +188,24 @@ public class Group implements Runnable{
 			if (this.userperms.get(c.getName())==null)this.changePerm(c, "U");
 			return true;
 		}
+		else if (!hasMember(c)) {
+			String inv = this.getPerm(c);
+			if (inv.equals("B") || inv == null);
+			else{
+				currentClients.add(c);
+				return true;
+			}
+		}
 		return false;
 	}
 	
-	
+	/**
+	 * 
+	 * @param clientname the name of the client to be invited (only mods and admins can do this)
+	 */
+	public void invite(String clientname){
+		if (this.userperms.get(clientname) == null)this.changePerm(clientname, "U");
+	}
 	
 	/**
 	 * 
@@ -170,8 +216,6 @@ public class Group implements Runnable{
 		return currentClients.contains(c);
 	}
 	
-	
-	
 	/**
 	 * 
 	 * @return the groupname
@@ -180,20 +224,21 @@ public class Group implements Runnable{
 		return groupName;
 	}
 	
-	
-	
-	
+	/**
+	 * sends the information about who is in the group to each member.
+	 */
 	private void sendUserInformation(){
 		String[] names = new String[this.currentClients.size()];
+		System.out.println(this.getName());
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
-			names[i] = "[" + this.getPerm(c) + "]" + c.getUserName();
+			names[i] = "[‡" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
+			System.out.println(c.getUserName());
 		}
 		for(Client c : this.currentClients){
 			c.sendPacket(new UsersPacket(names, this.ID));
 		}
 	}
-	
 	
 	/**
 	 * 
