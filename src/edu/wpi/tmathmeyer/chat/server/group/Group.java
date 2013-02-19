@@ -229,11 +229,9 @@ public class Group implements Runnable{
 	 */
 	private void sendUserInformation(){
 		String[] names = new String[this.currentClients.size()];
-		System.out.println(this.getName());
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
 			names[i] = "[‡" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
-			System.out.println(c.getUserName());
 		}
 		for(Client c : this.currentClients){
 			c.sendPacket(new UsersPacket(names, this.ID));

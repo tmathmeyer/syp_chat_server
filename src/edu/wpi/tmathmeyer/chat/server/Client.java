@@ -69,7 +69,6 @@ public class Client extends Thread{
 			}
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			this.killMe();
 			receiving = false;
 			System.out.println(this.getUserName() + " has disconnected");
