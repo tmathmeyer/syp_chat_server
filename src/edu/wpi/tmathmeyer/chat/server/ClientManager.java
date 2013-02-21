@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import edu.wpi.tmathmeyer.chat.protocol.MessageGroupListPacket;
-import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
 import edu.wpi.tmathmeyer.chat.protocol.PrivateMessagePacket;
 import edu.wpi.tmathmeyer.chat.server.group.Group;
 

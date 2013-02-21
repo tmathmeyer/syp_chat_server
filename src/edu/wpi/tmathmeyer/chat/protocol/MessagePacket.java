@@ -4,9 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import edu.wpi.tmathmeyer.chat.test.PseudoInputStream;
-import edu.wpi.tmathmeyer.chat.test.PseudoOutputStream;
-
 public class MessagePacket implements Packet{
 
 	@SuppressWarnings("unused")
