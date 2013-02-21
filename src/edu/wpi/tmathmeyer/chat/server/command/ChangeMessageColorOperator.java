@@ -14,7 +14,12 @@ public class ChangeMessageColorOperator implements CommandOperator {
 	public void parseCommand(Client sender, String[] args) {
 		if (args.length==0)return;
 		String newColor = args[1];
-		sender.setMessageColor(newColor);
+		if (newColor.length()!=6)return;
+		try{
+			int i = Integer.parseInt(newColor, 16);
+			sender.setMessageColor(newColor);
+		}
+		catch(Exception e){}
 	}
 
 }
