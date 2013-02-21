@@ -23,11 +23,9 @@ public class Group implements Runnable{
 	private String groupName;
 	private boolean open = true;
 	private byte ID;
+	private String adminColor="0000FF",modColor="00FF00",userColor="000000",mutedColor="FF0000";
 	
 	private HashMap<String, String> userperms;
-	
-	
-	
 	
 	/**
 	 * 
@@ -149,6 +147,7 @@ public class Group implements Runnable{
 	 */
 	public void changePerm(Client c, String perm){
 		this.userperms.put(c.getName(), perm);
+		c.setUsernameColor(perm.equals("A")?this.adminColor:perm.equals("M")?this.modColor:perm.equals("D")?this.mutedColor:this.userColor);
 		if (perm.equals("B"))this.kick(c);
 	}
 	
