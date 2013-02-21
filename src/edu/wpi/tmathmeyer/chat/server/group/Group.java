@@ -147,7 +147,6 @@ public class Group implements Runnable{
 	 */
 	public void changePerm(Client c, String perm){
 		this.userperms.put(c.getName(), perm);
-		c.setUsernameColor(perm.equals("A")?this.adminColor:perm.equals("M")?this.modColor:perm.equals("D")?this.mutedColor:this.userColor);
 		if (perm.equals("B"))this.kick(c);
 	}
 	
@@ -232,6 +231,7 @@ public class Group implements Runnable{
 		String[] msgColors = new String[this.currentClients.size()];
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
+			this.updateColors(c);
 			names[i] = "[‡" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
 			nameColors[i] = c.getUsernameColor();
 			msgColors[i] = c.getMessageColor();
@@ -254,5 +254,13 @@ public class Group implements Runnable{
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(this.userperms);
 		oos.close();
+	}
+	
+	public void updateColors(Client c){
+		String s = this.getPerm(c);
+		if (s.equals("A"))c.setUsernameColor(adminColor);
+		if (s.equals("M"))c.setUsernameColor(modColor);
+		if (s.equals("U"))c.setUsernameColor(userColor);
+		if (s.equals("D"))c.setUsernameColor(mutedColor);
 	}
 }
