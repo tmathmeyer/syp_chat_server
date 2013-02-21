@@ -67,7 +67,7 @@ public class Group implements Runnable{
 	 * @return whether the client is an admin or a moderator
 	 */
 	public boolean isAdminOrMod(String client){
-		return this.userperms.get(client).equals("A") || this.userperms.get(client).equals("M");
+		return "A".equals(this.userperms.get(client)) || "M".equals(this.userperms.get(client));
 	}
 	
 	/**
@@ -229,12 +229,17 @@ public class Group implements Runnable{
 	 */
 	private void sendUserInformation(){
 		String[] names = new String[this.currentClients.size()];
+		String[] nameColors = new String[this.currentClients.size()];
+		String[] msgColors = new String[this.currentClients.size()];
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
 			names[i] = "[‡" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
+			nameColors[i] = c.getUsernameColor();
+			msgColors[i] = c.getMessageColor();
+			System.out.println(names[i]+": "+nameColors[i]+" "+msgColors[i]);
 		}
 		for(Client c : this.currentClients){
-			c.sendPacket(new UsersPacket(names, this.ID));
+			c.sendPacket(new UsersPacket(names, this.ID, nameColors, msgColors));
 		}
 	}
 	

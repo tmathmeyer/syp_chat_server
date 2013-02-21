@@ -13,7 +13,8 @@ public class LeaveGroupOperator implements CommandOperator {
 
 	@Override
 	public void parseCommand(Client sender, String[] args) {
-		Server.se.operateCommand(new CommandPacket("join", "HOME", (byte) 0x00), sender);
+		if (sender.getCurrentGroup().getID() == 0x00)System.out.println("no leaving the homegroup");
+		else Server.se.operateCommand(new CommandPacket("join", "B HOME", (byte) 0x00), sender);
 	}
 
 }

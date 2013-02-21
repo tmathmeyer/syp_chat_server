@@ -22,6 +22,8 @@ public class Client extends Thread{
 	private DataInputStream in;
     private DataOutputStream out;
     
+    private String messageColor="00AA00", usernameColor="000000";
+    
     private Group currentGroup = Server.cm.getGroupByID((byte) 0x00);
     
     private long lastActivity=0;
@@ -72,11 +74,14 @@ public class Client extends Thread{
 			this.killMe();
 			receiving = false;
 			System.out.println(this.getUserName() + " has disconnected");
+			e.printStackTrace();
 		}
 	}
 	
 	
 	public void broadcastMessage(MessagePacket m) throws IOException{
+		m.setMessageHex(messageColor);
+		m.setUserHex(usernameColor);
 		this.getCurrentGroup().broadcast(m);
 	}
 	
@@ -132,7 +137,9 @@ public class Client extends Thread{
 			out.close();
 			myConnection.close();
 			this.setReceiving(false);
-		} catch (IOException e) {}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -264,5 +271,57 @@ public class Client extends Thread{
 		long currentTime = System.nanoTime();
 		long elapsedTime = currentTime-this.lastActivity;
 		return "‡"+(elapsedTime*1000000<300?"C":"F");
+	}
+
+
+
+
+
+
+
+	/**
+	 * @return the messageColor
+	 */
+	public String getMessageColor() {
+		return messageColor;
+	}
+
+
+
+
+
+
+
+	/**
+	 * @param messageColor the messageColor to set
+	 */
+	public void setMessageColor(String messageColor) {
+		this.messageColor = messageColor;
+	}
+
+
+
+
+
+
+
+	/**
+	 * @return the usernameColor
+	 */
+	public String getUsernameColor() {
+		return usernameColor;
+	}
+
+
+
+
+
+
+
+	/**
+	 * @param usernameColor the usernameColor to set
+	 */
+	public void setUsernameColor(String usernameColor) {
+		this.usernameColor = usernameColor;
 	}
 }

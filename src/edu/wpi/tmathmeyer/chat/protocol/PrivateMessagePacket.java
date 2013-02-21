@@ -11,6 +11,7 @@ public class PrivateMessagePacket implements Packet{
 	private String from;
 	private String message;
 	private int h,m,s;
+	private String messageHex,userHex;
 	
 	@Override
 	public byte getPacketID() {
@@ -30,6 +31,9 @@ public class PrivateMessagePacket implements Packet{
 		d.writeShort(h);
 		d.writeShort(m);
 		d.writeShort(s);
+		
+		d.writeChars(userHex);
+		d.writeChars(messageHex);
 	}
 	
 	
@@ -48,6 +52,14 @@ public class PrivateMessagePacket implements Packet{
 		m = di.readShort();
 		s = di.readShort();
 		
+		char[] uh = new char[6];
+		char[] mh = new char[6];
+		for(int i=0;i<6;i++)uh[i]=di.readChar();
+		for(int i=0;i<6;i++)mh[i]=di.readChar();
+		
+		this.messageHex = new String(mh);
+		this.userHex = new String(uh);
+		
 	}
 	
 	public PrivateMessagePacket(String from, String message){
@@ -57,6 +69,34 @@ public class PrivateMessagePacket implements Packet{
 		this.h = c.get(Calendar.HOUR);
 		this.m = c.get(Calendar.MINUTE);
 		this.s = c.get(Calendar.SECOND);
+	}
+
+	/**
+	 * @return the messageHex
+	 */
+	public String getMessageHex() {
+		return messageHex;
+	}
+
+	/**
+	 * @param messageHex the messageHex to set
+	 */
+	public void setMessageHex(String messageHex) {
+		this.messageHex = messageHex;
+	}
+
+	/**
+	 * @return the userHex
+	 */
+	public String getUserHex() {
+		return userHex;
+	}
+
+	/**
+	 * @param userHex the userHex to set
+	 */
+	public void setUserHex(String userHex) {
+		this.userHex = userHex;
 	}
 
 }
