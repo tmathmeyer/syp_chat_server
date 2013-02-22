@@ -165,6 +165,7 @@ public class Group implements Runnable{
 	 */
 	public void kick(Client c){
 		currentClients.remove(c);
+		this.sendUserInformation();
 	}
 	
 	/**
@@ -184,6 +185,7 @@ public class Group implements Runnable{
 		if (open && !hasMember(c)){
 			currentClients.add(c);
 			if (this.userperms.get(c.getName())==null)this.changePerm(c, "U");
+			this.sendUserInformation();
 			return true;
 		}
 		else if (!hasMember(c)) {
@@ -191,6 +193,7 @@ public class Group implements Runnable{
 			if (inv.equals("B") || inv == null);
 			else{
 				currentClients.add(c);
+				this.sendUserInformation();
 				return true;
 			}
 		}
