@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import edu.wpi.tmathmeyer.chat.protocol.Packet;
 
-public interface Client extends Runnable{
+public interface Client extends DataHandler{
 	
 	/**
 	 * 
