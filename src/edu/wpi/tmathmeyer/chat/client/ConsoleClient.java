@@ -4,20 +4,23 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import edu.wpi.tmathmeyer.chat.protocol.ControlPacket;
-import edu.wpi.tmathmeyer.chat.protocol.Packet;
+import edu.wpi.tmathmeyer.protocol.DataReciever;
+import edu.wpi.tmathmeyer.protocol.Packet;
+import edu.wpi.tmathmeyer.protocol.chat.ChatPackets;
+import edu.wpi.tmathmeyer.protocol.chat.ControlPacket;
 
 public class ConsoleClient implements Client{
 	DataOutputStream writer;
 	boolean authenticated = false;
 	Socket s;
 	
+	
+	
 	public ConsoleClient(Socket s) throws Exception{
 		this.writer = new DataOutputStream(s.getOutputStream());
 		this.s = s;
 		new Thread(this).start();
 	}
-	
 	@Override
 	public void login(String username, String password) throws Exception{
 		writer.writeByte(0x00);
@@ -27,7 +30,6 @@ public class ConsoleClient implements Client{
 		writer.writeChars(password);
 		writer.flush();
 	}
-	
 	@Override
 	public void sendMessage(String message) throws Exception {
 		writer.writeByte(0x01);
@@ -44,7 +46,6 @@ public class ConsoleClient implements Client{
 		writer.flush();
 		System.out.println("sent message: "+message);
 	}
-	
 	@Override
 	public void closeOutStream() throws Exception{
 		writer.close();
@@ -55,16 +56,7 @@ public class ConsoleClient implements Client{
 	
 	
 	
-	public static void main(String[] args){
-		try{
-			
-			Socket s = new Socket("localhost",25566);
-			new ConsoleClient(s);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+	
 
 	
 	
@@ -74,6 +66,7 @@ public class ConsoleClient implements Client{
 
 	@Override
 	public void processPacket(Packet p) {
+		if (p == null)System.out.println("fuck");
 		if (p instanceof ControlPacket)System.out.println(this.authenticate(p));
 		else System.out.println(p.toString());
 	}
@@ -100,7 +93,7 @@ public class ConsoleClient implements Client{
 
 
 	@Override
-	public void startReciever(Reciever r) {
+	public void startReciever(DataReciever r) {
 		new Thread(r).start();
 	}
 
@@ -113,11 +106,10 @@ public class ConsoleClient implements Client{
 	@Override
 	public void run() {
 		try{
-			this.startReciever(new Reciever(this.getSocket(), this));
+			this.startReciever(new Reciever(this.getSocket(), this, ChatPackets.pkts));
 			this.login("tmathmeyer", "pass");
 			@SuppressWarnings("resource")
 			Scanner s = new Scanner(System.in);
-			
 			while(true){
 				while(authenticated){
 					while(s.hasNext()){
@@ -130,12 +122,29 @@ public class ConsoleClient implements Client{
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	@Override
-	public void print(byte b) {
-		// TODO Auto-generated method stub
-		
+	public void print(Object o) {
+		System.out.println(o);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args){
+		try{
+			
+			Socket s = new Socket("localhost",25566);
+			new ConsoleClient(s);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
-
-

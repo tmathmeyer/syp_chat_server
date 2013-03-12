@@ -1,8 +1,5 @@
 package edu.wpi.tmathmeyer.chat.test;
 
-import java.io.DataInputStream;
-import java.io.InputStream;
-
 public class PseudoInputStream{
 	
 	PseudoIO pio;

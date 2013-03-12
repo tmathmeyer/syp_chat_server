@@ -2,8 +2,6 @@ package edu.wpi.tmathmeyer.chat.test;
 
 import java.io.IOException;
 
-import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
-
 public class PseudoIO {
 	BitQueue bq;
 	
@@ -55,10 +53,10 @@ public class PseudoIO {
 	
 	public static void main(String[] args) throws IOException{
 		
-		MessagePacket mp = new MessagePacket("herro", "000000", "000000", "noob");
+		//MessagePacket mp = new MessagePacket("herro", "000000", "000000", "noob");
 		PseudoIO pi = new PseudoIO();
-		PseudoOutputStream pos = new PseudoOutputStream(pi);
-		PseudoInputStream pis = new PseudoInputStream(pi);
+		//PseudoOutputStream pos = new PseudoOutputStream(pi);
+		//PseudoInputStream pis = new PseudoInputStream(pi);
 		
 		//mp.write(pos);
 		
