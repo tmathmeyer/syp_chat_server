@@ -5,9 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import edu.wpi.tmathmeyer.chat.protocol.MessageGroupListPacket;
-import edu.wpi.tmathmeyer.chat.protocol.PrivateMessagePacket;
 import edu.wpi.tmathmeyer.chat.server.group.Group;
+import edu.wpi.tmathmeyer.protocol.chat.MessageGroupListPacket;
+import edu.wpi.tmathmeyer.protocol.chat.PrivateMessagePacket;
 
 public class ClientManager implements Runnable{
 	private ArrayList<Client> clients = new ArrayList<Client>();

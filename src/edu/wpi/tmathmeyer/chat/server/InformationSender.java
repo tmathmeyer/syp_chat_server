@@ -2,7 +2,7 @@ package edu.wpi.tmathmeyer.chat.server;
 
 import java.util.ArrayList;
 
-import edu.wpi.tmathmeyer.chat.protocol.Packet;
+import edu.wpi.tmathmeyer.protocol.Packet;
 
 public class InformationSender implements Runnable{
 

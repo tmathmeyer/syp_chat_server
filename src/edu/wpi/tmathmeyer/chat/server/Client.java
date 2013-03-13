@@ -3,12 +3,12 @@ package edu.wpi.tmathmeyer.chat.server;
 import java.net.Socket;
 import java.io.*;
 
-import edu.wpi.tmathmeyer.chat.protocol.CommandPacket;
-import edu.wpi.tmathmeyer.chat.protocol.ControlPacket;
-import edu.wpi.tmathmeyer.chat.protocol.LoginPacket;
-import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
-import edu.wpi.tmathmeyer.chat.protocol.Packet;
 import edu.wpi.tmathmeyer.chat.server.group.Group;
+import edu.wpi.tmathmeyer.protocol.Packet;
+import edu.wpi.tmathmeyer.protocol.chat.CommandPacket;
+import edu.wpi.tmathmeyer.protocol.chat.ControlPacket;
+import edu.wpi.tmathmeyer.protocol.chat.LoginPacket;
+import edu.wpi.tmathmeyer.protocol.chat.MessagePacket;
 
 public class Client extends Thread{
 

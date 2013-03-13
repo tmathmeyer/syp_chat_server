@@ -1,8 +1,8 @@
 package edu.wpi.tmathmeyer.chat.server.command;
 
-import edu.wpi.tmathmeyer.chat.protocol.CommandPacket;
 import edu.wpi.tmathmeyer.chat.server.Client;
 import edu.wpi.tmathmeyer.chat.server.Server;
+import edu.wpi.tmathmeyer.protocol.chat.CommandPacket;
 
 public class LeaveGroupOperator implements CommandOperator {
 

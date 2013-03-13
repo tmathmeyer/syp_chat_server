@@ -9,11 +9,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import edu.wpi.tmathmeyer.chat.protocol.MessagePacket;
-import edu.wpi.tmathmeyer.chat.protocol.UsersPacket;
-
 import edu.wpi.tmathmeyer.chat.server.Client;
 import edu.wpi.tmathmeyer.chat.server.Server;
+import edu.wpi.tmathmeyer.protocol.chat.MessagePacket;
+import edu.wpi.tmathmeyer.protocol.chat.UsersPacket;
 
 public class Group implements Runnable{
 	
