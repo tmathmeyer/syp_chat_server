@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
-<project name="Ant-Test" default="main" basedir=".">
-  <!-- Sets variables which can later be used. -->
-  <!-- The value of a property is accessed via ${} -->
+<project name="ChatServ-Aletheia" default="main" basedir=".">
   <property name="src.dir" location="src" />
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
 
-  <!-- Deletes the existing build, docs and dist directory-->
+  <path id="protocol.api.class.path">
+    <pathelement location="/home/pi/Synchronous-Network-Protocol/dist/SYP.ant.jar" />
+    <pathelement location="${build.dir}" />
+  </path>
+
   <target name="clean">
     <delete dir="${build.dir}" />
     <delete dir="${dist.dir}" />
   </target>
 
-  <!-- Creates the  build, docs and dist directory-->
   <target name="makedir">
     <mkdir dir="${build.dir}" />
     <mkdir dir="${dist.dir}" />
   </target>
 
-  <!-- Compiles the java code (including the usage of library for JUnit -->
   <target name="compile" depends="clean, makedir">
     <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="iso-8859-1">
+      <classpath refid="protocol.api.class.path" />
     </javac>
-
   </target>
 
 
   <!--Creates the deployable jar file  -->
   <target name="jar" depends="compile">
-    <jar destfile="${dist.dir}\Server.jar" basedir="${build.dir}">
+    <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
@@ -38,5 +38,4 @@
   <target name="main" depends="compile, jar">
     <description>Main target</description>
   </target>
-
-</project> 
+</project>
