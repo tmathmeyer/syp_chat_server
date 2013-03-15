@@ -1,6 +1,6 @@
 package edu.wpi.tmathmeyer.chat.client;
 
-import edu.wpi.tmathmeyer.protocol.DataHandler;
+import edu.wpi.tmathmeyer.protocol.client.DataHandler;
 
 public interface Client extends DataHandler{
 	/**

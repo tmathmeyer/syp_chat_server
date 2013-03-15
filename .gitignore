@@ -7,6 +7,9 @@
 .metadata
 bin/
 tmp/
+build/
+dist/
+docs/
 *.tmp
 *.bak
 *.swp
@@ -161,14 +164,3 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
-
-
-
-
-
-
-
-
-#custom files
-.gr
-.chatUser

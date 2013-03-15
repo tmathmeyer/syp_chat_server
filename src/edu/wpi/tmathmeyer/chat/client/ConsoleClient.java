@@ -4,10 +4,10 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-import edu.wpi.tmathmeyer.protocol.DataReciever;
 import edu.wpi.tmathmeyer.protocol.Packet;
 import edu.wpi.tmathmeyer.protocol.chat.ChatPackets;
 import edu.wpi.tmathmeyer.protocol.chat.ControlPacket;
+import edu.wpi.tmathmeyer.protocol.client.DataReciever;
 
 public class ConsoleClient implements Client{
 	DataOutputStream writer;

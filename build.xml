@@ -5,8 +5,7 @@
   <property name="dist.dir" location="dist" />
 
   <path id="protocol.api.class.path">
-    <pathelement location="/home/pi/Synchronous-Network-Protocol/dist/SYP.ant.jar" />
-    <pathelement location="${build.dir}" />
+      <fileset dir="C:\Users\Ted\git\Synchronous-Network-Protocol\dist\" includes="**/*.jar" />
   </path>
 
   <target name="clean">

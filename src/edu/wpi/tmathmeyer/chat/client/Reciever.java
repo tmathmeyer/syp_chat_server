@@ -2,7 +2,7 @@ package edu.wpi.tmathmeyer.chat.client;
 
 import java.io.IOException;
 import java.net.Socket;
-import edu.wpi.tmathmeyer.protocol.DataReciever;
+import edu.wpi.tmathmeyer.protocol.client.DataReciever;
 import edu.wpi.tmathmeyer.protocol.Packet;
 
 public class Reciever extends DataReciever{
