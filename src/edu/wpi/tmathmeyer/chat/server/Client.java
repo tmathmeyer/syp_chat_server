@@ -270,7 +270,7 @@ public class Client extends Thread{
 	public String getLastActivityTime(){
 		long currentTime = System.nanoTime();
 		long elapsedTime = currentTime-this.lastActivity;
-		return "‡"+(elapsedTime*1000000<300?"C":"F");
+		return ""+(elapsedTime*1000000<300?"C":"F");
 	}
 
 

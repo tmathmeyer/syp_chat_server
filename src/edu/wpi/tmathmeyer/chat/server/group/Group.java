@@ -234,7 +234,7 @@ public class Group implements Runnable{
 		for(int i = 0; i < names.length; i++){
 			Client c = this.currentClients.get(i);
 			this.updateColors(c);
-			names[i] = "[‡" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
+			names[i] = "[" + this.getPerm(c) + "]" + c.getUserName()+"["+c.getLastActivityTime()+"]";
 			nameColors[i] = c.getUsernameColor();
 			msgColors[i] = c.getMessageColor();
 			System.out.println(names[i]+": "+nameColors[i]+" "+msgColors[i]);

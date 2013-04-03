@@ -3,9 +3,10 @@
   <property name="src.dir" location="src" />
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
+<property name="lib.storage" location="D:\builds\java\syp-chat\server" />
 
   <path id="protocol.api.class.path">
-      <fileset dir="C:\Users\Ted\git\Synchronous-Network-Protocol\dist\" includes="**/*.jar" />
+      <fileset dir="D:\builds\java\syp" includes="**/*.jar" />
   </path>
 
   <target name="clean">
@@ -28,6 +29,11 @@
   <!--Creates the deployable jar file  -->
   <target name="jar" depends="compile">
     <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
+      </manifest>
+    </jar>
+    <jar destfile="${lib.storage}\syp.chat.server.ant.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
