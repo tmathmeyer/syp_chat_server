@@ -3,10 +3,6 @@ package edu.wpi.tmathmeyer.chat.server;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import javax.swing.UIManager;
-
-import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
-
 import edu.wpi.tmathmeyer.chat.server.command.CommandOperator;
 import edu.wpi.tmathmeyer.chat.server.command.Commands;
 import edu.wpi.tmathmeyer.chat.server.mem.UserFileManager;
@@ -32,18 +28,6 @@ public class Server implements Runnable{
         System.out.println("server up!");
         new Commands();
         new Thread(this).start();
-        
-        try 
-        {
-          UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
-        } 
-        catch (Exception e) 
-        {
-          e.printStackTrace();
-        }
-        
-        
-        
     }
     
 	public String getName(){
