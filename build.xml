@@ -3,10 +3,22 @@
   <property name="src.dir" location="src" />
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
-<property name="lib.storage" location="D:\builds\java\syp-chat\server" />
+  <property name="lib.storage.windows" location="D:\builds\java\syp-chat\client" />
+  <property name="lib.storage.linux" location="/home/pi/Builds/auto/syp-chat/client" />
 
-  <path id="protocol.api.class.path">
+  <condition property="isWindows">
+    <os family="windows" />
+  </condition>
+
+  <condition property="isLinux">
+    <os family="unix" />
+  </condition>
+
+  <path id="protocol.api.class.path.windows">
       <fileset dir="D:\builds\java\syp" includes="**/*.jar" />
+  </path>
+  <path id="protocol.api.class.path.linux">
+      <fileset dir="/home/pi/Builds/auto/syp" includes="**/*.jar" />
   </path>
 
   <target name="clean">
@@ -19,28 +31,47 @@
     <mkdir dir="${dist.dir}" />
   </target>
 
-  <target name="compile" depends="clean, makedir">
+  <target name="compile.linux" depends="clean, makedir" if="isLinux">
     <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="iso-8859-1">
-      <classpath refid="protocol.api.class.path" />
+      <classpath refid="protocol.api.class.path.linux" />
+    </javac>
+  </target>
+  <target name="compile.windows" depends="clean, makedir" if="isWindows">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="iso-8859-1">
+      <classpath refid="protocol.api.class.path.windows" />
     </javac>
   </target>
 
 
   <!--Creates the deployable jar file  -->
-  <target name="jar" depends="compile">
+  <target name="jar.windows" depends="compile.windows" if="isWindows">
     <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
     </jar>
-    <jar destfile="${lib.storage}\syp.chat.server.ant.jar" basedir="${build.dir}">
+    <jar destfile="${lib.storage.windows}\syp.chat.server.ant.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <!--Creates the deployable jar file  -->
+  <target name="jar.linux" depends="compile.linux" if="isLinux">
+    <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
+      </manifest>
+    </jar>
+    <jar destfile="${lib.storage.linux}\syp.chat.server.ant.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
     </jar>
   </target>
 
-  <target name="main" depends="compile, jar">
+  <target name="main" depends="compile.linux, compile.windows, jar.linux, jar.windows">
     <description>Main target</description>
   </target>
 </project>
