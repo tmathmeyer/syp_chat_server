@@ -4,7 +4,7 @@
   <property name="build.dir" location="build" />
   <property name="dist.dir" location="dist" />
   <property name="lib.storage.windows" location="D:\builds\java\syp-chat\client" />
-  <property name="lib.storage.linux" location="/home/pi/Builds/auto/syp-chat/client" />
+  <property name="lib.storage.linux" location="/home/pi/Builds/auto/syp-chat/server" />
 
   <condition property="isWindows">
     <os family="windows" />
@@ -45,7 +45,7 @@
 
   <!--Creates the deployable jar file  -->
   <target name="jar.windows" depends="compile.windows" if="isWindows">
-    <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
+    <jar destfile="${dist.dir}\syp_server.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
@@ -59,7 +59,7 @@
   
   <!--Creates the deployable jar file  -->
   <target name="jar.linux" depends="compile.linux" if="isLinux">
-    <jar destfile="${dist.dir}\Aletheia-Server.jar" basedir="${build.dir}">
+    <jar destfile="${dist.dir}\syp_server.jar" basedir="${build.dir}">
       <manifest>
         <attribute name="Main-Class" value="edu.wpi.tmathmeyer.chat.server.Server"/>
       </manifest>
